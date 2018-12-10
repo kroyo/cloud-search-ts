@@ -1,4 +1,4 @@
-# vue-test
+# vue-cloudsearch-ts
 
 ## Project setup
 ```
@@ -27,3 +27,19 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Project init
+```
+vue create my-project  
+//OR
+vue ui
+```
+
+
+## 添加插件配置
+
+### stylus 预处理
+```
+yarn add stylus stylus-loader 
+```

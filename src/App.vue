@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <footer :class="footerClass">版权所有 &copy; 2018 广州金越软件技术有限公司</footer>
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+export default class App extends Vue{
+  
 }
+</script>
+
+
+<style lang="stylus">
+
 </style>
+

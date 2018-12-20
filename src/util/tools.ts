@@ -29,4 +29,27 @@ class dateExpen extends Date {
   }
 }
 
-export default dateExpen;
+// 获取url参数方法
+function getUrlParam(name: string) {
+  let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  let r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]); return null;
+}
+// 获取cookie参数
+function getCookie(name: string) {
+  let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg))
+    return unescape(arr[2]);
+  else
+    return null;
+}
+// 删除cookie
+function delCookie(name: string) {
+  let exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  let cval = getCookie(name);
+  if (cval != null)
+    document.cookie = name + "=" + cval + ";expires=" + exp.toUTCString();
+}
+
+export { dateExpen, getUrlParam, getCookie, delCookie }

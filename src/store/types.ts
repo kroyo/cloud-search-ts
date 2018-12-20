@@ -1,4 +1,4 @@
 
-export default interface RootState {
-  version?: string
+export interface RootState {
+  [key: string]: any
 }

@@ -1,5 +1,6 @@
 <template>
   <div id="app" :style="{ 'min-height': minHeight + 'px' }">
+    <commonNav></commonNav>
     <router-view/>
     <footer :class="footerClass">版权所有 &copy; 2018 广州金越软件技术有限公司</footer>
   </div>
@@ -7,13 +8,22 @@
 
 <script lang="ts">
 import { Vue, Component, Emit, Watch } from 'vue-property-decorator'
+import { State, Action } from 'vuex-class'
+import commonNav from './components/common-nav.vue'
 
-@Component
+@Component({
+  components: {
+    commonNav
+  }
+})
 export default class App extends Vue{
   minHeight = 'auto'
-  options = []
+  
+  @State('user') userState!: any
+  @Action('_getUserinfo') _getUserinfo: any 
 
   mounted() {
+    this._getUserinfo();
     let _url = window.location.href.replace(/\?token=\w{32}/, "");
     window.location.href = _url;
     // 获取浏览器可视区域高度
@@ -44,18 +54,34 @@ export default class App extends Vue{
 </script>
 
 <style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
+@import './assets/style/reset.styl';
+html, body 
+  background-color #fff
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
+#app
+  position relative
+  width 100%
+  height auto 
+  min-height 100%
+  min-width 1240px 
+  padding-bottom 30px 
+
+footer
+  position absolute 
+  bottom 0 
+  width 100% 
+  height 30px
+  line-height 30px
+  color #000
+  font-size 14px
+  text-align center 
+  background-color #fff  
+
+.homefooter 
+  color #fff
+  padding-top 130px
+  background url("./assets/img/home/footer-bg.png") center center no-repeat
+  
+.managefooter 
+  padding-left 160px  
 </style>

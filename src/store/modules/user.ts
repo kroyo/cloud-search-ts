@@ -1,5 +1,10 @@
-import RootState from '../types'
-import { Module, MutationTree } from 'vuex'
+/**
+ * @param 用户信息模块
+ */
+import { RootState } from '../types'
+import { Module, GetterTree, ActionTree, MutationTree } from 'vuex'
+import { userInfo } from '@/api/api'
+
 
 interface UserState {
   token: string,
@@ -14,19 +19,41 @@ const state: UserState = {
   btnPermissions: [],
   singleResoure: {}
 }
+
+const getters: GetterTree<UserState, RootState> = {
+  getUserinfo: (state) => {
+    let localdata = window.sessionStorage.getItem('userInfo');
+    if(Object.keys(state.userInfomation).length == 0 && localdata) {
+        state.userInfomation = JSON.parse(localdata);
+    }
+    return state.userInfomation;
+  },
+  getbtnPermissions: (state) => state.btnPermissions
+}
+
+const actions: ActionTree<UserState, RootState> = {
+  _getUserinfo ({commit}) {
+    return userInfo().then(res => {
+      commit('saveUserInfo',res);
+      commit('saveBtnPermissions',res);
+      return res;
+    })
+  },
+}
+
 const mutations: MutationTree<UserState> = {
+  SET_TOKEN: (state, data) => {
+    if (data) {
+      state.token = data;
+    }
+  },
   saveUserInfo(state, res) {
     state.userInfomation = res.data ? res.data : res;
     let JSONdata = JSON.stringify(res.data ? res.data : res);
     window.sessionStorage.setItem('userInfo', JSONdata);
   },
-  savebtnPermissions(state, res) {
+  saveBtnPermissions(state, res) {
     state.btnPermissions = res.data.btnPermissions;
-  },
-  SET_TOKEN: (state, data) => {
-    if (data) {
-      state.token = data;
-    }
   },
   // 单表资源表信息保存
   saveSinleResoure(state, data) {
@@ -38,6 +65,8 @@ const mutations: MutationTree<UserState> = {
 
 const user: Module<UserState, RootState> = {
   state,
+  getters,
+  actions,
   mutations
 }
 export default user;

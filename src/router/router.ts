@@ -11,9 +11,10 @@ const routes = [
       requireAuth : true
     },
     component : () => import('@/views/Home.vue')
-  },
+  }
 ];
 
-export default new Router({
+const router = new Router({
   routes
 });
+export { routes, router }

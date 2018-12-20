@@ -1,11 +1,25 @@
 import axios from 'axios'
-import store from '../store/store'
+import { getCookie } from '../util/tools'
 
-// const baseURL = process.env.NODE_ENV === 'development' ? 'https://www.easy-mock.com/mock/5b87537a43440226c7285fdf' : '';
 const baseURL = process.env.NODE_ENV === 'development' ? '/ap1' : '';
-const baseURL2 = process.env.NODE_ENV === 'development' ? '/ap1' : '';
-const Qs = require('qs');
 
+
+// 本地开发时使用 调用实际接口数据
+if(process.env.NODE_ENV === 'development'){
+  axios.interceptors.request.use(
+    (config: any) => {
+      let token = getCookie('token');
+      if (token) { // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
+        config.headers.token = `${token}`;
+        return config
+      }
+      window.location.href = 'http://jmportal.kingyea.com.cn:8888/login?returnURL='+window.location.href.replace(window.location.search,'');
+    },
+    (err: any) => {
+      return Promise.reject(err)
+    }
+  );
+}
 
 //api管理
 // 用户信息管理
@@ -37,4 +51,3 @@ export const homeInfo = () => {
     }
   });
 };
-

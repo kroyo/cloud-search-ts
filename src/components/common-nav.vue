@@ -8,7 +8,7 @@
         <div :class="['navli', $route.name == item.url.name ? 'active' : '']" :title="item.label">{{ item.label }}</div>
       </router-link>
     </div>
-    <div class="header-right clearfix">
+    <!-- <div class="header-right clearfix">
       <div class="logoutBtn" @click='logout()' title="退出"></div>
       <div class="menage" @click='menagement()' v-if='"management" in permission'>后台管理系统</div>
       <p class="users">
@@ -28,18 +28,47 @@
         </el-dropdown>
         ，欢迎登录金越智能云搜！
       </p>
-    </div>
+    </div> -->
   </header>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator'
+import { Vue, Component, Watch, Emit } from 'vue-property-decorator'
+import { State } from 'vuex-class'
+import { routes } from '@/router/router'
 
+@Component
 export default class Nav extends Vue{
+  @State('nav') navState!: any
+
+  options = []
   headerClass = {
     clearfix: true,
     header: false
+  } 
+  
+  created() {
   }
+  mounted() {
+  }
+
+  get navRouterList(): any {
+    return this.navState.navRouterList
+  }
+
+  @Watch('$route')
+  routeChange(newVal: any) {
+    let off = false;
+    this.options.forEach((elem: any) => {
+      if (newVal.name == elem.name) {
+        off = true;
+        return;
+      }
+    });
+    this.headerClass.header = off;
+  }
+
+  @Emit()
   
 }
 </script>

@@ -1,4 +1,4 @@
-import router from '../router/router'
+import { router } from '../router/router'
 import store from '../store/store'
 import { getUrlParam, getCookie } from './tools'
 

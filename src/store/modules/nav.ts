@@ -1,13 +1,10 @@
 /**
- * @param nav模块
+ * @description nav模块
+ *
  */
-import { RootState } from '../types';
+import { RootState, NavState } from '../types';
 import { Module, GetterTree, ActionTree, MutationTree } from 'vuex'
 
-
-interface NavState {
-  navRouterList: any
-}
 
 const state: NavState = {
   navRouterList: [

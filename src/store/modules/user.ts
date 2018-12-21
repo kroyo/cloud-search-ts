@@ -1,17 +1,10 @@
 /**
  * @param 用户信息模块
  */
-import { RootState } from '../types'
+import { RootState, UserState } from '../types'
 import { Module, GetterTree, ActionTree, MutationTree } from 'vuex'
-import { userInfo } from '@/api/api'
+import { apiUserInfo } from '@/api/api'
 
-
-interface UserState {
-  token: string,
-  userInfomation: any,
-  btnPermissions: number[],
-  singleResoure: any
-}
 
 const state: UserState = {
   token: 'admin',
@@ -33,7 +26,7 @@ const getters: GetterTree<UserState, RootState> = {
 
 const actions: ActionTree<UserState, RootState> = {
   _getUserinfo ({commit}) {
-    return userInfo().then(res => {
+    return apiUserInfo().then(res => {
       commit('saveUserInfo',res);
       commit('saveBtnPermissions',res);
       return res;

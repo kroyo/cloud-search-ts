@@ -1,18 +1,40 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { Action } from 'vuex-class'
+import { apiGetCategory } from '../api/api'
 
 @Component({
   components: {
-    HelloWorld,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  @Action('_getUserinfo') _getUserinfo: any 
+
+  created() {
+  }
+  mounted() {
+    apiGetCategory().then(res => {
+      console.log(res)
+    })
+    this._getUserinfo().then((res: any) => {
+      console.log(res)
+    });
+  }
+}
 </script>
+
+<style lang="stylus" scoped>
+.home
+  position absolute
+  top 50px
+  bottom 0
+  width 100%
+  background url('../assets/img/home-bg.jpg')
+  background-size 100%
+</style>
+

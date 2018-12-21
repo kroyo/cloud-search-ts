@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Vue, Component, Emit, Watch } from 'vue-property-decorator'
 import { State, Action } from 'vuex-class'
+import { UserState } from './store/types'
 import commonNav from './components/common-nav.vue'
 
 @Component({
@@ -17,13 +18,11 @@ import commonNav from './components/common-nav.vue'
   }
 })
 export default class App extends Vue{
+  @State('user') userState!: UserState
+
   minHeight = 'auto'
-  
-  @State('user') userState!: any
-  @Action('_getUserinfo') _getUserinfo: any 
 
   mounted() {
-    this._getUserinfo();
     let _url = window.location.href.replace(/\?token=\w{32}/, "");
     window.location.href = _url;
     // 获取浏览器可视区域高度
@@ -78,9 +77,10 @@ footer
   background-color #fff  
 
 .homefooter 
+  height 160px
   color #fff
   padding-top 130px
-  background url("./assets/img/home/footer-bg.png") center center no-repeat
+  background url("./assets/img/footer-bg.png") center center no-repeat
   
 .managefooter 
   padding-left 160px  

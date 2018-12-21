@@ -21,9 +21,9 @@ if(process.env.NODE_ENV === 'development'){
   );
 }
 
-//api管理
-// 用户信息管理
-export const userInfo = () => {
+
+// 获取用户信息
+export const apiUserInfo = () => {
   return axios.post(baseURL + '/user/info').then((res) => {
     if (res.status == 200) {
       return res;
@@ -36,8 +36,9 @@ export const userInfo = () => {
       window.location.href = error.response.data.portal;
     }
   });
-};
-export const homeInfo = () => {
+}
+// 获取所有分类
+export const apiGetCategory = () => {
   return axios.post(baseURL + '/categories').then((res) => {
     if (res.status == 200) {
       return res;
@@ -50,4 +51,19 @@ export const homeInfo = () => {
       window.location.href = error.response.data.portal;
     }
   });
-};
+}
+
+// 退出当前登录
+export const apiLogout = () => {
+  return axios.post(baseURL + '/logout').then((res) => {
+    if (res.status == 302) {
+      window.location.href = res.data.portal;
+    } else {
+      return res;
+    }
+  }).catch(function (error) {
+    if (error.response.status == 302) {
+      window.location.href = error.response.data.portal;
+    }
+  })
+}

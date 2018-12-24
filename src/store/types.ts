@@ -2,19 +2,48 @@
  * @description 
  *   vuex state type 定义
  */
-interface RootState {
+export interface RootState {
   [key: string]: any
 }
-
-interface UserState {
+// 用户模块State type
+export interface UserState {
   token: string,
   userInfomation: any,
   btnPermissions: number[],
   singleResoure: any
 }
-
-interface NavState {
+// nav state type
+export interface NavState {
+  categoryList : Array<any>,
+  choosed : Array<any>,
+  boxIndex : number,
+  advitemId : number,
+  advBoxshow : boolean,
+  tabName : string,
+  singleTab: any,
   navRouterList: any
 }
 
-export { RootState, UserState, NavState }
+export interface searchState {
+  searchParam: any,
+  results: object,
+  hasReason: string,
+  yearPick: string
+}
+// 搜索tab切换模块 state type
+export interface tabState {
+  tabOptions: Array<any>,
+  activeTabs: string
+}
+// 关系分析与亲近人分析 state types
+export interface RelationState {
+  relationList: Array<any>,      
+  chooseRelations: object,    
+  relationCate: Array<any>,      
+  chooseRelationCates: object 
+}
+
+// 管理模块 state types
+export interface managerState {
+  historyParams: any
+}

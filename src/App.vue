@@ -7,9 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit, Watch } from 'vue-property-decorator'
-import { State, Action } from 'vuex-class'
-import { UserState } from './store/types'
+import { Vue, Component } from 'vue-property-decorator'
 import commonNav from './components/common-nav.vue'
 
 @Component({
@@ -18,8 +16,6 @@ import commonNav from './components/common-nav.vue'
   }
 })
 export default class App extends Vue{
-  @State('user') userState!: UserState
-
   minHeight = 'auto'
 
   mounted() {

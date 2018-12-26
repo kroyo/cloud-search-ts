@@ -3,7 +3,7 @@
  *
  */
 import { RootState, NavState } from '../types';
-import { Module, GetterTree, ActionTree, MutationTree } from 'vuex'
+import { Module, MutationTree } from 'vuex'
 
 
 const state: NavState = {
@@ -34,9 +34,9 @@ const state: NavState = {
   ]
 }
 
-const mutations:MutationTree<RootState> = {
-  clearItemListBtn(state,tab){
-    state.itemLists.forEach((elem: any) => {
+const mutations: MutationTree<NavState> = {
+  clearItemListBtn(state,tab): void {
+    state.categoryList.forEach((elem: any) => {
       if(elem.name === tab && elem.messages){
         elem.messages.forEach((item: any) => {
           item.active = false;
@@ -44,12 +44,12 @@ const mutations:MutationTree<RootState> = {
       }
     })
   },
-  saveItemList(state,res) {
-    state.itemLists = res;
+  saveItemList(state,res): void {
+    state.categoryList = res;
     let JSONdata = JSON.stringify(res);
     window.sessionStorage.setItem('homeInfo',JSONdata);
   },
-  saveChoosed(state,val) {
+  saveChoosed(state,val): void {
     if(val.length === 0){
       state.choosed.splice(0,state.choosed.length);
     }
@@ -57,30 +57,31 @@ const mutations:MutationTree<RootState> = {
     let JSONdata = JSON.stringify(state.choosed);
     window.sessionStorage.setItem('choosed',JSONdata);
   },
-  saveBoxindex(state,res) {
+  saveBoxindex(state,res): void {
     state.boxIndex = res;
     let JSONdata = JSON.stringify(state.boxIndex);
     window.sessionStorage.setItem('boxIndex',JSONdata);
   },
-  savetabName(state,val) {
+  savetabName(state,val): void {
     state.tabName = val;
   },
-  setAdvitemId(state) {
+  setAdvitemId(state): void {
     state.advitemId += 1;
   },
-  setadvBoxshow(state,val) {
+  setadvBoxshow(state,val): void {
     state.advBoxshow = !state.advBoxshow;
   },
   // 单表查询 保存与清空单表 
-  saveSingleTab(state,val){
+  saveSingleTab(state,val): void {
     state.singleTab = val;
     let JSONdata = JSON.stringify(state.singleTab);
     window.sessionStorage.setItem('singleTab',JSONdata);
   }
 }
 
+const namespaced: boolean = true
+
 const nav: Module<NavState, RootState> = {
-  namespaced: true,
   state,
   mutations
 }

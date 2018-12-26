@@ -1,5 +1,5 @@
 // Date prototype 扩展
-class dateExpen extends Date {
+export class dateExpen extends Date {
   format(fmt: string) {
     interface dateObject {
       [propName: string]: any;
@@ -30,13 +30,13 @@ class dateExpen extends Date {
 }
 
 // 获取url参数方法
-function getUrlParam(name: string) {
+export function getUrlParam(name: string) {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
   let r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(r[2]); return null;
 }
 // 获取cookie参数
-function getCookie(name: string) {
+export function getCookie(name: string) {
   let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
   if (arr = document.cookie.match(reg))
     return unescape(arr[2]);
@@ -44,12 +44,10 @@ function getCookie(name: string) {
     return null;
 }
 // 删除cookie
-function delCookie(name: string) {
+export function delCookie(name: string) {
   let exp = new Date();
   exp.setTime(exp.getTime() - 1);
   let cval = getCookie(name);
   if (cval != null)
     document.cookie = name + "=" + cval + ";expires=" + exp.toUTCString();
 }
-
-export { dateExpen, getUrlParam, getCookie, delCookie }

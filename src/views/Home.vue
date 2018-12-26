@@ -30,9 +30,12 @@ export default class Home extends Vue {
 
   // 获取按钮权限
   get permission(): any {
-    let permission = {};
+    let permission: any = {};
     this.userState.btnPermissions.forEach((elem: any) => {
-      this.$set(permission, elem.code, elem);
+      if (!permission[elem.code]) {
+        permission[elem.code] = [];
+      }
+      permission[elem.code].push(elem);
     });
     return permission
   }

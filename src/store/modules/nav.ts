@@ -44,7 +44,7 @@ const mutations: MutationTree<NavState> = {
       }
     })
   },
-  saveItemList(state,res): void {
+  saveCategoryList(state,res): void {
     state.categoryList = res;
     let JSONdata = JSON.stringify(res);
     window.sessionStorage.setItem('homeInfo',JSONdata);

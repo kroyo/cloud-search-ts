@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { State, Action } from 'vuex-class'
+import { State, Action, Mutation } from 'vuex-class'
 import { UserState } from '../store/types'
 import { apiGetCategory } from '../api/api'
 import searchBox from '../components/searchBox.vue'
@@ -22,7 +22,10 @@ import searchBox from '../components/searchBox.vue'
 })
 export default class Home extends Vue {
   @State('user') userState!: UserState
-  @Action('_getUserinfo') _getUserinfo: any 
+  @Action('_getUserinfo') _getUserinfo: any
+  @Mutation('savetabName') savetabName: any 
+  @Mutation('saveCategoryList') saveCategoryList: any
+  @Mutation('saveSearchKeyWords') saveSearchKeyWords: any 
 
   categoryList: Array<any> = []
   boxIndex: number = 0
@@ -73,9 +76,8 @@ export default class Home extends Vue {
       };
       _this.categoryList.push(_item);
     });
-    console.log(_this.categoryList)
     //解决高级搜索第一次获取tab值的bug
-    // this.$store.commit("savetabName", this.itemList[0].name);
+    this.savetabName(this.categoryList[0].name);
   }
   //获取分类资源
   getCategoryResource(data: any) {
@@ -96,7 +98,7 @@ export default class Home extends Vue {
     }
     //将分类的资源集中到all分类下
     this.setAlltab();
-    this.$store.commit("saveItemList", this.categoryList);
+    this.saveCategoryList(this.categoryList);
   }
   // 获取分类相应的搜索参数
   getCategoryKeyWords(data: any) {
@@ -118,8 +120,7 @@ export default class Home extends Vue {
         endData['all'] = Object.assign(endData['all'], endData[key]);
       }
     }
-    console.log(endData)
-    // this.saveSearchKeyWords(endData);
+    this.saveSearchKeyWords(endData);
   }
   //将分类的资源集中到all分类下
   setAlltab() {

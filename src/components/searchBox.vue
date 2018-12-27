@@ -182,7 +182,6 @@ export default class searchBox extends Vue {
   }
   // 搜索提示数据
   getTipList(val: string) {
-    console.log(this.advState);
     this.tipOff = true;
     this.inputTipList = [];
     let _resList = this.searchKeyWords[this.tabName],
@@ -299,9 +298,29 @@ triangle($width, $color)
   background-position center -2px
   margin-left 2px
   vertical-align top
-
 .mainInput
   width 684px
   vertical-align middle
+
+.inputtip-list
+  position absolute
+  left 0
+  width 684px
+  background-color #ffffff
+  padding-bottom 10px
+  .inputtip
+    display block
+    width 100%
+    height 35px
+    line-height 34px
+    color #666
+    font-size 14px
+    text-align left 
+    padding 0 15px
+    border-bottom 1px dashed #dddddd
+    transition .4s all
+    &:hover, &.hover
+      background-color #eee
+
 </style>
 
